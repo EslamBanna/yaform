@@ -19,11 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'unauth'], function(){
-Route::post('/login', [UserController::class,'login']);
-Route::post('/logout', [UserController::class,'logout']);
-Route::post('/sig-up', [UserController::class,'signup']);
-Route::post('/update-info', [UserController::class,'updateInfo']);
-Route::post('/get-info', [UserController::class,'getUserInfo']);
+Route::group(['prefix' => 'unauth'], function () {
+    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/sign-up', [UserController::class, 'signup']);
+});
 
+Route::group(['prefix' => 'auth', 'middleware' => 'checkAuth:api-user'], function () {
+    Route::post('/update-user-info', [UserController::class, 'updateUserInfo']);
+    Route::post('/get-user-info', [UserController::class, 'getUserInfo']);
+    Route::post('/logout', [UserController::class, 'logout']);
 });

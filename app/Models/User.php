@@ -9,7 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject{
+class User extends Authenticatable implements JWTSubject
+{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,6 +22,11 @@ class User extends Authenticatable implements JWTSubject{
         'name',
         'email',
         'password',
+        'date_of_birth',
+        'gender',
+        'country',
+        'phone',
+        'photo'
     ];
 
     /**
@@ -55,5 +61,34 @@ class User extends Authenticatable implements JWTSubject{
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function getNameAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getEmailAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getDateOfBirthAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getGenderAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getCountryAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getPhoneAttribute($value)
+    {
+        return $value ?? '';
+    }
+    public function getPhotoAttribute($value)
+    {
+        $actual_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+        return ($value == null ? '' : $actual_link . 'images/users/' . $value);
     }
 }
