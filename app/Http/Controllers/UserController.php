@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function login(){
-
+        return 'logined';
     }
     public function logout(){
 
@@ -19,6 +19,6 @@ class UserController extends Controller
 
     }
     public function getUserInfo(){
-        
+
     }
 }
