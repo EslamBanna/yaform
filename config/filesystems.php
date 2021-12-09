@@ -47,6 +47,18 @@ return [
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
         ],
+        'forms_logo' => [
+            'driver' => 'local',
+            'root' => base_path() . '/public/images/forms_logo/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
+          'forms_questions' => [
+            'driver' => 'local',
+            'root' => base_path() . '/public/images/forms_questions/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

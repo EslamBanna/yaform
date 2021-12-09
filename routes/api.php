@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,5 @@ Route::group(['prefix' => 'auth', 'middleware' => 'checkAuth:api-user'], functio
     Route::post('/update-user-info', [UserController::class, 'updateUserInfo']);
     Route::post('/get-user-info', [UserController::class, 'getUserInfo']);
     Route::post('/logout', [UserController::class, 'logout']);
+    Route::post('/create-form',[FormController::class,'createForm']);
 });
