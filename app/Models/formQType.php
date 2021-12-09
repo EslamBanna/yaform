@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class formQType extends Model
+class FormQType extends Model
 {
     use HasFactory;
 
@@ -14,4 +14,8 @@ class formQType extends Model
         'form_q_id',
         'name'
     ];
+
+    public function questions(){
+        return $this->hasMany(FormQuestion::class,'type','form_q_id');
+    }
 }

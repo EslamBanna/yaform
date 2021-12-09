@@ -20,4 +20,18 @@ class Form extends Model
         'twitter_link',
         'instgram_link'
     ];
+
+    public function getLogoAttribute($value)
+    {
+        $actual_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+        return ($value == null ? '' : $actual_link . 'images/forms_logo/' . $value);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function formQuestions()
+    {
+        return $this->hasMany(FormQuestion::class, 'form_id', 'id');
+    }
 }

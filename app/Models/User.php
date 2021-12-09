@@ -91,4 +91,9 @@ class User extends Authenticatable implements JWTSubject
         $actual_link = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
         return ($value == null ? '' : $actual_link . 'images/users/' . $value);
     }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class, 'user_id', 'id');
+    }
 }

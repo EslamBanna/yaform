@@ -30,4 +30,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'checkAuth:api-user'], functio
     Route::post('/get-user-info', [UserController::class, 'getUserInfo']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::post('/create-form',[FormController::class,'createForm']);
+    Route::get('/get-forms',[FormController::class,'getForms']);
+    Route::post('/get-form-questions',[FormController::class,'getFormQuestions']);
+
 });

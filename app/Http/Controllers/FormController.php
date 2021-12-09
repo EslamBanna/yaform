@@ -55,15 +55,31 @@ class FormController extends Controller
                                 'choice' => $choice
                             ]);
                         }
+                    } else if ($question['q_type'] == 8) {
+                        // youtub_link
+                        FormQuestion::create([
+                            'form_id' => $form_id,
+                            'title' => $question['title'],
+                            'description' => $question['youtube_link'],
+                            'type' => $question['q_type'],
+                        ]);
                     } else if ($question['q_type'] == 9) {
-                        // image
+                        // photo
+                        $photo = '';
+                        // $photo  = $this->saveImage($question['photo'], 'forms_questions');
+                        FormQuestion::create([
+                            'form_id' => $form_id,
+                            'title' => $question['title'],
+                            'description' => $photo,
+                            'type' => $question['q_type'],
+                        ]);
                     } else if ($question['q_type'] == 10) {
+                        // head
                         FormQuestion::create([
                             'form_id' => $form_id,
                             'title' => $question['title'],
                             'description' => $question['description'],
                             'type' => $question['q_type'],
-                            // 'required' => $question->required ?? 0
                         ]);
                     } else {
                         FormQuestion::create([
@@ -80,7 +96,34 @@ class FormController extends Controller
             return $this->returnSuccessMessage('success');
         } catch (\Exception $e) {
             DB::rollback();
-            return $this->returnError('201', $e->getMessage());
+            return $this->returnError('201', 'fail');
+        }
+    }
+    public function getForms()
+    {
+        try {
+            $forms = Form::with('formQuestions.QuestionType')
+                ->with('formQuestions.QuestionChoices')
+                ->where('user_id', Auth()->user()->id)
+                ->get();
+            return $this->returnData('data', $forms);
+        } catch (\Exception $e) {
+            return $this->returnError('201', 'fail');
+        }
+    }
+
+    public function getFormQuestions(Request $request)
+    {
+        try {
+            if (!$request->has('form_id')) {
+                return $this->returnError('202', 'fail');
+            }
+            $form = Form::with('formQuestions.QuestionType')
+                ->with('formQuestions.QuestionChoices')
+                ->where('id', $request->form_id)->first();
+            return $this->returnData('data', $form);
+        } catch (\Exception $e) {
+            return $this->returnError('201', 'fail');
         }
     }
 }

@@ -14,4 +14,9 @@ class MultipleChoiceQ extends Model
         'question_id',
         'choice'
     ];
+
+    public function question()
+    {
+        return $this->belongsTo(FormQuestion::class, 'question_id', 'id');
+    }
 }
