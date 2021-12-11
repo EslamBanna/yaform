@@ -15,6 +15,7 @@ class FormController extends Controller
     use GeneralTrait;
     public function createForm(Request $request)
     {
+        // return 55;
         DB::beginTransaction();;
         try {
             $validator = Validator::make($request->all(), [
@@ -93,6 +94,7 @@ class FormController extends Controller
                 }
             }
             DB::commit();
+            // return 44;
             return $this->returnSuccessMessage('success');
         } catch (\Exception $e) {
             DB::rollback();
@@ -102,9 +104,11 @@ class FormController extends Controller
     public function getForms()
     {
         try {
-            $forms = Form::with('formQuestions.QuestionType')
-                ->with('formQuestions.QuestionChoices')
-                ->where('user_id', Auth()->user()->id)
+            $forms = Form::
+                // with('formQuestions.QuestionType')
+                // ->with('formQuestions.QuestionChoices')
+                where('user_id', Auth()->user()->id)
+                ->orderBy('updated_at', 'desc')
                 ->get();
             return $this->returnData('data', $forms);
         } catch (\Exception $e) {
@@ -123,6 +127,100 @@ class FormController extends Controller
                 ->where('id', $request->form_id)->first();
             return $this->returnData('data', $form);
         } catch (\Exception $e) {
+            return $this->returnError('201', 'fail');
+        }
+    }
+
+    public function deleteForm(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            if (!$request->has('form_id')) {
+                return $this->returnError('202', 'fail');
+            }
+            $form = Form::find($request->form_id);
+            if (!$form) {
+                return $this->returnError('203', 'fail');
+            }
+            if ($form->user_id != Auth()->user()->id) {
+                return $this->returnError('204', 'fail');
+            }
+            $form->delete();
+            DB::commit();
+            return $this->returnSuccessMessage('success');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->returnError('201', 'fail');
+        }
+    }
+
+    public function editForm(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            if (!$request->has('form_id')) {
+                return $this->returnError('202', 'fail');
+            }
+            $form = Form::find($request->form_id);
+            if (!$form) {
+                return $this->returnError('203', 'fail');
+            }
+            if ($form->user_id != Auth()->user()->id) {
+                return $this->returnError('204', 'fail');
+            }
+            $questions = $form->formQuestions;
+            // return 4;
+            foreach ($questions as $question) {
+                if (isset($question->QuestionChoices) && count($question->QuestionChoices) > 0) {
+                    $question->QuestionChoices()->delete();
+                }
+            }
+            $request['form_type'] = $form['type'];
+            $form->formQuestions()->delete();
+            $form->delete();
+            $this->createForm($request);
+            DB::commit();
+            return $this->returnSuccessMessage('success');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->returnError('201', $e->getMessage());
+        }
+    }
+
+    public function searchForms(Request $request)
+    {
+        try {
+            if (!$request->has('title')) {
+                return $this->returnError('202', 'fail');
+            }
+            $forms = Form::where('title', 'like', '%' . $request->title . '%')->get();
+            return $this->returnData('data', $forms);
+        } catch (\Exception $e) {
+            return $this->returnError('201', 'fail');
+        }
+    }
+
+    public function updateResponseMsg(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            if (!$request->has('response_msg') || !$request->has('form_id')) {
+                return $this->returnError('202', 'fail');
+            }
+            $form = Form::find($request->form_id);
+            if (!$form) {
+                return $this->returnError('203', 'fail');
+            }
+            if ($form->user_id != Auth()->user()->id) {
+                return $this->returnError('204', 'fail');
+            }
+            $form->update([
+                'response_msg' => $request->response_msg
+            ]);
+            DB::commit();
+            return $this->returnSuccessMessage('success');
+        } catch (\Exception $e) {
+            DB::rollback();
             return $this->returnError('201', 'fail');
         }
     }

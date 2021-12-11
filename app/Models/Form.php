@@ -18,7 +18,8 @@ class Form extends Model
         'type',
         'facebook_link',
         'twitter_link',
-        'instgram_link'
+        'instgram_link',
+        'response_msg'
     ];
 
     public function getLogoAttribute($value)

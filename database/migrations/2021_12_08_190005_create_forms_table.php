@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateFormsTable extends Migration
 {
@@ -23,7 +24,10 @@ class CreateFormsTable extends Migration
             $table->string('facebook_link')->nullable(true);
             $table->string('twitter_link')->nullable(true);
             $table->string('instgram_link')->nullable(true);
-            $table->timestamps();
+            $table->string('response_msg')->default('Your answer has been submitted')->nullable(true);
+            // $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

@@ -32,5 +32,9 @@ Route::group(['prefix' => 'auth', 'middleware' => 'checkAuth:api-user'], functio
     Route::post('/create-form',[FormController::class,'createForm']);
     Route::get('/get-forms',[FormController::class,'getForms']);
     Route::post('/get-form-questions',[FormController::class,'getFormQuestions']);
+    Route::post('/delete-form',[FormController::class,'deleteForm']);
+    Route::post('/edit-form',[FormController::class,'editForm']);
+    Route::post('/search-forms',[FormController::class,'searchForms']);
+    Route::post('/update-response-msg',[FormController::class,'updateResponseMsg']);
 
 });
