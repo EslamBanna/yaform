@@ -25,6 +25,7 @@ class CreateFormsTable extends Migration
             $table->string('twitter_link')->nullable(true);
             $table->string('instgram_link')->nullable(true);
             $table->string('response_msg')->default('Your answer has been submitted')->nullable(true);
+            $table->boolean('accepting_responses')->default(1);
             // $table->timestamps();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

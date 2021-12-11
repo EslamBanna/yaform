@@ -124,6 +124,9 @@ class FormController extends Controller
             }
             $form = Form::with('formQuestions.QuestionType')
                 ->with('formQuestions.QuestionChoices')
+                ->with(['user' => function($q){
+                    $q->select('id','name');
+                }])
                 ->where('id', $request->form_id)->first();
             return $this->returnData('data', $form);
         } catch (\Exception $e) {
@@ -216,6 +219,30 @@ class FormController extends Controller
             }
             $form->update([
                 'response_msg' => $request->response_msg
+            ]);
+            DB::commit();
+            return $this->returnSuccessMessage('success');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $this->returnError('201', 'fail');
+        }
+    }
+
+    public function editAcceptingResponses(Request $request){
+        DB::beginTransaction();
+        try {
+            if (!$request->has('accept') || !$request->has('form_id')) {
+                return $this->returnError('202', 'fail');
+            }
+            $form = Form::find($request->form_id);
+            if (!$form) {
+                return $this->returnError('203', 'fail');
+            }
+            if ($form->user_id != Auth()->user()->id) {
+                return $this->returnError('204', 'fail');
+            }
+            $form->update([
+                'accepting_responses' => $request->accept
             ]);
             DB::commit();
             return $this->returnSuccessMessage('success');

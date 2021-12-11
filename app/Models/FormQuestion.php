@@ -25,10 +25,15 @@ class FormQuestion extends Model
     }
     public function QuestionType()
     {
-        return $this->belongsTo(FormQType::class, 'type','form_q_id');
+        return $this->belongsTo(FormQType::class, 'type', 'form_q_id');
     }
     public function QuestionChoices()
     {
         return $this->hasMany(MultipleChoiceQ::class, 'question_id', 'id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(FormAnswer::class, 'form_question_id', 'id');
     }
 }
