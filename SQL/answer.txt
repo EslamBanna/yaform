@@ -1,0 +1,38 @@
+{
+    "user_id": 5,
+    "form_id": 1,
+    "answers":[
+        {
+            "form_question_id": 40,
+            "answer": "eslam elbanna"
+        },
+         {
+            "form_question_id": 41,
+            "answer": "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem"
+        },
+         {
+            "form_question_id": 42,
+            "answer": ["A", "B", "C"]
+        },
+         {
+            "form_question_id": 43,
+            "answer": "A"
+        },
+         {
+            "form_question_id": 44,
+            "answer": "eslam elbanna"
+        },
+         {
+            "form_question_id": 45,
+            "answer": "2022-10-10"
+        },
+         {
+            "form_question_id": 46,
+            "answer": "12:30"
+        },
+         {
+            "form_question_id": 47,
+            "answer": "0123456789"
+        }
+    ] 
+}

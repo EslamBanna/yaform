@@ -508,6 +508,15 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 5,\r\n    \"form_id\": 1,\r\n    \"answers\":[\r\n        {\r\n            \"form_question_id\": 40,\r\n            \"answer\": \"eslam elbanna\"\r\n        },\r\n         {\r\n            \"form_question_id\": 41,\r\n            \"answer\": \"loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem\"\r\n        },\r\n         {\r\n            \"form_question_id\": 42,\r\n            \"answer\": [\"A\", \"B\", \"C\"]\r\n        },\r\n         {\r\n            \"form_question_id\": 43,\r\n            \"answer\": \"A\"\r\n        },\r\n         {\r\n            \"form_question_id\": 44,\r\n            \"answer\": \"eslam elbanna\"\r\n        },\r\n         {\r\n            \"form_question_id\": 45,\r\n            \"answer\": \"2022-10-10\"\r\n        },\r\n         {\r\n            \"form_question_id\": 46,\r\n            \"answer\": \"12:30\"\r\n        },\r\n         {\r\n            \"form_question_id\": 47,\r\n            \"answer\": \"0123456789\"\r\n        }\r\n    ] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:8000/api/auth/submit-answers",
 							"host": [

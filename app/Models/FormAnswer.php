@@ -11,6 +11,7 @@ class FormAnswer extends Model
 
     protected $table = 'form_answers';
     protected $fillable = [
+        'answer_group',
         'form_question_id',
         'answer'
     ];
@@ -18,5 +19,10 @@ class FormAnswer extends Model
     public function question()
     {
         return $this->belongsTo(FormQuestion::class, 'form_question_id', 'id');
+    }
+
+    public function answerGroup()
+    {
+        return $this->belongsTo(AnswerGroup::class, 'answer_group', 'id');
     }
 }

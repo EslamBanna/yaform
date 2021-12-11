@@ -16,6 +16,7 @@ class CreateFormAnswersTable extends Migration
     {
         Schema::create('form_answers', function (Blueprint $table) {
             $table->id();
+            $table->integer('answer_group');
             $table->integer('form_question_id');
             $table->string('answer')->nullable(true);
             // $table->timestamps();
