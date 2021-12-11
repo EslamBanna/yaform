@@ -458,20 +458,129 @@
 					"response": []
 				},
 				{
-					"name": "submit form",
+					"name": "edit accepting responses",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91bmF1dGhcL2xvZ2luIiwiaWF0IjoxNjM5MDUwMjg4LCJuYmYiOjE2MzkwNTAyODgsImp0aSI6IlAzU09abFpXbVduOGhkQ2siLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.k3VpzjAfycpyerWFJye57dXxdBRtY8wJwI7Z3zxNQx0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"form_id\": 1,\r\n    \"accept\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/edit-accepting-responses",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"edit-accepting-responses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "answers",
+			"item": [
+				{
+					"name": "submit answers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91bmF1dGhcL2xvZ2luIiwiaWF0IjoxNjM5MDUwMjg4LCJuYmYiOjE2MzkwNTAyODgsImp0aSI6IlAzU09abFpXbVduOGhkQ2siLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.k3VpzjAfycpyerWFJye57dXxdBRtY8wJwI7Z3zxNQx0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/auth/submit-answers",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"submit-answers"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "get form answers",
 					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91bmF1dGhcL2xvZ2luIiwiaWF0IjoxNjM5MDUwMjg4LCJuYmYiOjE2MzkwNTAyODgsImp0aSI6IlAzU09abFpXbVduOGhkQ2siLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.k3VpzjAfycpyerWFJye57dXxdBRtY8wJwI7Z3zxNQx0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/auth/get-answers",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"get-answers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete answers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authToken",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91bmF1dGhcL2xvZ2luIiwiaWF0IjoxNjM5MDUwMjg4LCJuYmYiOjE2MzkwNTAyODgsImp0aSI6IlAzU09abFpXbVduOGhkQ2siLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.k3VpzjAfycpyerWFJye57dXxdBRtY8wJwI7Z3zxNQx0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"form_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/auth/delete-answers",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"delete-answers"
+							]
+						}
 					},
 					"response": []
 				}
