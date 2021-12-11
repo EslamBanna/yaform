@@ -19,6 +19,7 @@ class CreateFormAnswersTable extends Migration
             $table->integer('answer_group');
             $table->integer('form_question_id');
             $table->string('answer')->nullable(true);
+            $table->boolean('multiple_answer')->default(0)->comment('0 is only one answer, 1 have multiple answer');
             // $table->timestamps();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

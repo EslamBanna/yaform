@@ -13,7 +13,8 @@ class FormAnswer extends Model
     protected $fillable = [
         'answer_group',
         'form_question_id',
-        'answer'
+        'answer',
+        'multiple_answer'
     ];
 
     public function question()

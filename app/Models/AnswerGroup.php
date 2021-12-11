@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AnswerGroup extends Model
 {
     use HasFactory;
-    protected $table = '';
+    protected $table = 'answer_groups';
     protected $fillable = [
         'user_id',
         'form_id'
