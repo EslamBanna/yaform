@@ -27,7 +27,7 @@ class FormAnswer extends Model
         return $this->belongsTo(AnswerGroup::class, 'answer_group', 'id');
     }
 
-    public function multipleAnswer()
+    public function multipleAnswerT()
     {
         return $this->hasMany(MultipleAnswer::class, 'answer_id', 'id');
     }

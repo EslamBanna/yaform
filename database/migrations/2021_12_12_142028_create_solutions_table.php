@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateMultipleAnswersTable extends Migration
+class CreateSolutionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ class CreateMultipleAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('multiple_answers', function (Blueprint $table) {
+        Schema::create('solutions', function (Blueprint $table) {
             $table->id();
-            $table->integer('answer_id');
-            $table->string('answer');
+            $table->integer('question_id');
+            $table->string('solution')->nullable(true);
             // $table->timestamps();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -31,6 +31,6 @@ class CreateMultipleAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('multiple_answers');
+        Schema::dropIfExists('solutions');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Models\FormQuestion;
 use App\Models\MultipleChoiceQ;
+use App\Models\Solution;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use Validator;
@@ -50,6 +51,19 @@ class FormController extends Controller
                             'type' => $question['q_type'],
                             'required' => $question['required'] ?? 0
                         ]);
+                        if ($question['q_type'] == 2) {
+                            foreach ($question['solution'] as $solution) {
+                                Solution::create([
+                                    'question_id' => $question_id,
+                                    'solution' => $solution
+                                ]);
+                            }
+                        } else {
+                            Solution::create([
+                                'question_id' => $question_id,
+                                'solution' => $question['solution']
+                            ]);
+                        }
                         foreach ($question['choices'] as $choice) {
                             MultipleChoiceQ::create([
                                 'question_id' => $question_id,
@@ -83,12 +97,16 @@ class FormController extends Controller
                             'type' => $question['q_type'],
                         ]);
                     } else {
-                        FormQuestion::create([
+                        $question_id =  FormQuestion::insertGetId([
                             'form_id' => $form_id,
                             'title' => $question['title'],
                             // 'description' => $question->description,
                             'type' => $question['q_type'],
                             'required' => $question['required'] ?? 0
+                        ]);
+                        Solution::create([
+                            'question_id' => $question_id,
+                            'solution' => $question['solution']
                         ]);
                     }
                 }
@@ -98,7 +116,7 @@ class FormController extends Controller
             return $this->returnSuccessMessage('success');
         } catch (\Exception $e) {
             DB::rollback();
-            return $this->returnError('201', 'fail');
+            return $this->returnError('201', $e->getMessage());
         }
     }
     public function getForms()
@@ -124,8 +142,8 @@ class FormController extends Controller
             }
             $form = Form::with('formQuestions.QuestionType')
                 ->with('formQuestions.QuestionChoices')
-                ->with(['user' => function($q){
-                    $q->select('id','name');
+                ->with(['user' => function ($q) {
+                    $q->select('id', 'name');
                 }])
                 ->where('id', $request->form_id)->first();
             return $this->returnData('data', $form);
@@ -228,7 +246,8 @@ class FormController extends Controller
         }
     }
 
-    public function editAcceptingResponses(Request $request){
+    public function editAcceptingResponses(Request $request)
+    {
         DB::beginTransaction();
         try {
             if (!$request->has('accept') || !$request->has('form_id')) {

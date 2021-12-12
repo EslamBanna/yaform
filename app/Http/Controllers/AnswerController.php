@@ -65,21 +65,22 @@ class AnswerController extends Controller
                 if (!$request->has('question_id')) {
                     return $this->returnError('202', 'fail');
                 }
-                $answers = FormAnswer::with(['multipleAnswer' => function($q){
-                    $q->select('id','answer','answer_id');
+                $answers = FormAnswer::with(['multipleAnswerT' => function ($q) {
+                    $q->select('id', 'answer', 'answer_id');
                 }])
-                ->where('form_question_id', $request->question_id)
+                    ->where('form_question_id', $request->question_id)
                     ->get();
             } else if ($request->filter == 1) {
                 // get all answers of a user in a form
                 if (!$request->has('form_id')) {
                     return $this->returnError('202', 'fail');
                 }
-                $answers = AnswerGroup::with(['answers.multipleAnswer' => function($q){
-                    $q->select('id','answer','answer_id');
+                $answers = AnswerGroup::with(['answers.multipleAnswerT' => function ($q) {
+                    $q->select('id', 'answer', 'answer_id');
                 }])
                     ->where('form_id', $request->form_id)->paginate(1);
             } else if ($request->filter == 2) {
+                //  summary
             }
             return $this->returnData('data', $answers);
         } catch (\Exception $e) {

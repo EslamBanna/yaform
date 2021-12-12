@@ -10,12 +10,14 @@
         {
             "q_type": 0,
             "title": "what is your name",
-            "required": 1
+            "required": 1,
+            "solution" : "eslam"
         },
         {
              "q_type": 1,
             "title": "what is your age",
-            "required": 0
+            "required": 0,
+            "solution" : 21
         }
         ,
         {
@@ -24,7 +26,8 @@
             "required": 1,
             "choices":[
                 "A", "B", "C"
-            ]
+            ],
+            "solution" : ["A", "C"]
         }
           ,
         {
@@ -33,7 +36,8 @@
             "required": 1,
             "choices":[
                 "A", "B", "C"
-            ]
+            ],
+            "solution" : "A"
         }  ,
         {
              "q_type": 4,
@@ -41,22 +45,26 @@
             "required": 1,
             "choices":[
                 "A", "B", "C"
-            ]
+            ],
+            "solution" : "B"
         }  ,
         {
              "q_type": 5,
             "title": "what is your address",
-            "required": 1
+            "required": 1,
+            "solution" : "eslam"
         }  ,
         {
              "q_type": 6,
             "title": "what is your address",
-            "required": 1
+            "required": 1,
+            "solution" : "eslam"
         }  ,
         {
              "q_type": 7,
             "title": "what is your address",
-            "required": 0
+            "required": 0,
+            "solution" : "eslam"
         }  ,
         {
              "q_type": 8,
