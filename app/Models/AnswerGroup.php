@@ -11,7 +11,8 @@ class AnswerGroup extends Model
     protected $table = 'answer_groups';
     protected $fillable = [
         'user_id',
-        'form_id'
+        'form_id',
+        'score'
     ];
 
     public function answers()

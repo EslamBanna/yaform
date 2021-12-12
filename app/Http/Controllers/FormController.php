@@ -32,7 +32,7 @@ class FormController extends Controller
                 $logo  = $this->saveImage($request->logo, 'forms_logo');
             }
             $form_id = Form::insertGetId([
-                'user_id' => Auth()->user()->id,
+                'user_id' => Auth()->user()->id ?? -1,
                 'title' => $request->title,
                 'description' => $request->description,
                 'logo' => $logo,

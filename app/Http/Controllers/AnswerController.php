@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnswerGroup;
+use App\Models\Form;
 use App\Models\FormAnswer;
 use App\Models\MultipleAnswer;
+use App\Models\Solution;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
 use DB;
@@ -18,6 +20,10 @@ class AnswerController extends Controller
         try {
             if (!$request->has('form_id') || !$request->has('answers')) {
                 return $this->returnError('202', 'fail');
+            }
+            $form = Form::find($request->form_id);
+            if (!$form) {
+                return $this->returnError('203', 'fail');
             }
             $answer_group_id = AnswerGroup::insertGetId([
                 'user_id' => Auth()->user()->id ?? -1,
@@ -47,7 +53,20 @@ class AnswerController extends Controller
                 }
             }
             DB::commit();
-            return $this->returnSuccessMessage('success');
+            // here we shoud specify the return output
+            if ($form->type == 2) {
+                // calc score
+                
+                $right_solution = Solution::whereHas('question', function($q) use ($request){
+                    $q->where('form_id', $request->form_id);
+                })->get();
+                return $right_solution;
+                $user_core = 10;
+                $form_socre = 100;
+                return $this->returnSuccessMessage('Your score is ' . $user_core . ' from ' . $form_socre);
+            } else {
+                return $this->returnSuccessMessage($form->response_msg);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             return $this->returnError('201', $e->getMessage());

@@ -18,6 +18,7 @@ class CreateAnswerGroupsTable extends Migration
             $table->id();
             $table->integer('user_id')->default(-1)->nullable(true);
             $table->integer('form_id');
+            $table->integer('score')->default(0);            
             // $table->timestamps();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
