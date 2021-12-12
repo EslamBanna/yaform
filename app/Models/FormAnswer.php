@@ -26,4 +26,16 @@ class FormAnswer extends Model
     {
         return $this->belongsTo(AnswerGroup::class, 'answer_group', 'id');
     }
+
+    public function multipleAnswer()
+    {
+        return $this->hasMany(MultipleAnswer::class, 'answer_id', 'id');
+    }
+
+    // public function getMultipleAnswerAttribute($value){
+    //     return ($value->isEmpty() ? 0 : $value);
+    // }
+    public function getMultipleAnswerAttribute($value){
+        return $value;
+    }
 }
