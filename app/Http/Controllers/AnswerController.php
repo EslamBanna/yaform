@@ -77,8 +77,8 @@ class AnswerController extends Controller
             DB::commit();
             // here we shoud specify the return output
             if ($form->type == 2) {
-                $form_socre = 100;
-                return $this->returnSuccessMessage('Your score is ' . ($socre * 10) . ' from ' . $form_socre);
+                $question_count = count($form->onlyFormQuestions);
+                return $this->returnSuccessMessage('Your score is ' . $socre . ' from ' . $question_count);
             } else {
                 return $this->returnSuccessMessage($form->response_msg);
             }

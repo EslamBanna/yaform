@@ -36,4 +36,11 @@ class Form extends Model
     {
         return $this->hasMany(FormQuestion::class, 'form_id', 'id');
     }
+    public function onlyFormQuestions()
+    {
+        return $this->hasMany(FormQuestion::class, 'form_id', 'id')
+            ->where('type', '!=', 8)
+            ->Where('type', '!=', 9)
+            ->Where('type', '!=', 10);
+    }
 }
