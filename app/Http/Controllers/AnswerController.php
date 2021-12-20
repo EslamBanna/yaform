@@ -25,6 +25,7 @@ class AnswerController extends Controller
             if (!$form) {
                 return $this->returnError('203', 'fail');
             }
+            $socre = 0;
             $answer_group_id = AnswerGroup::insertGetId([
                 'user_id' => Auth()->user()->id ?? -1,
                 'form_id' => $request->form_id
@@ -37,11 +38,25 @@ class AnswerController extends Controller
                         'answer' => 'lorem',
                         'multiple_answer' => 1
                     ]);
-                    foreach ($answer['answer'] as $choice) {
+                    $user_answer = [];
+                    foreach ($answer['answer'] as $index => $choice) {
                         MultipleAnswer::create([
                             'answer_id' => $answer_id,
                             'answer' => $choice,
                         ]);
+                        $user_answer[$index] = $choice;
+                    }
+                    if ($form->type == 2) {
+                        // check every answer
+                        $right_solution = Solution::select('solution')->where('question_id', $answer['form_question_id'])->get();
+                        $final_right_solution = [];
+                        foreach ($right_solution as $index => $final_solution) {
+                            $final_right_solution[$index] = $final_solution['solution'];
+                        }
+                        $containsAllValues = !array_diff($user_answer, $final_right_solution);
+                        if ($containsAllValues) {
+                            $socre++;
+                        }
                     }
                 } else {
                     FormAnswer::create([
@@ -50,20 +65,20 @@ class AnswerController extends Controller
                         'answer' => $answer['answer'],
                         'multiple_answer' => 0
                     ]);
+                    if ($form->type == 2) {
+                        // check one answer
+                        $right_solution = Solution::where('question_id', $answer['form_question_id'])->first();
+                        if ($right_solution->solution == $answer['answer']) {
+                            $socre++;
+                        }
+                    }
                 }
             }
             DB::commit();
             // here we shoud specify the return output
             if ($form->type == 2) {
-                // calc score
-                
-                $right_solution = Solution::whereHas('question', function($q) use ($request){
-                    $q->where('form_id', $request->form_id);
-                })->get();
-                return $right_solution;
-                $user_core = 10;
                 $form_socre = 100;
-                return $this->returnSuccessMessage('Your score is ' . $user_core . ' from ' . $form_socre);
+                return $this->returnSuccessMessage('Your score is ' . ($socre * 10) . ' from ' . $form_socre);
             } else {
                 return $this->returnSuccessMessage($form->response_msg);
             }
