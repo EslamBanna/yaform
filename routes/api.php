@@ -46,5 +46,8 @@ Route::group(['prefix' => 'auth', 'middleware' => 'checkAuth:api-user'], functio
     Route::post('/submit-answers', [AnswerController::class,'submitAnswers']);
     Route::post('/get-answers', [AnswerController::class,'getAnswers']);
     Route::post('/delete-answers', [AnswerController::class,'deleteAnswers']);
+    // Route::post('/export-excel', [AnswerController::class,'exportExcel']);
+    // Route::post('/export-csv', [AnswerController::class,'exportCSV']);
+   
     // ######################################
 });

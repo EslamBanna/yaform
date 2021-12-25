@@ -143,4 +143,26 @@ class AnswerController extends Controller
             return $this->returnError('201', $e->getMessage());
         }
     }
+
+    // public function exportExcel(Request $request)
+    // {
+    //     try {
+    //         if (!$request->has('form_id')) {
+    //             return $this->returnError('202', 'fail');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return $this->returnError('201', $e->getMessage());
+    //     }
+    // }
+
+    // public function exportCSV(Request $request)
+    // {
+    //     try {
+    //         if (!$request->has('form_id')) {
+    //             return $this->returnError('202', 'fail');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return $this->returnError('201', $e->getMessage());
+    //     }
+    // }
 }
